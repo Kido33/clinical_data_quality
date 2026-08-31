@@ -1,0 +1,5 @@
+error_type,table_name,column_name,target_rows,actual_rows,target_rate,actual_rate
+Missing,patients,BIRTHDATE,1,1,0.05555555555555555,0.05263157894736842
+InvalidCode,patients,GENDER,1,1,0.05555555555555555,0.05263157894736842
+Duplicate,patients,Id,1,1,0.05555555555555555,0.05263157894736842
+Temporal,encounters,START/STOP,10,10,0.009596928982725527,0.009596928982725527

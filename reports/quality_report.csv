@@ -1,0 +1,7 @@
+rule_id,category,table_name,column_name,violation_count,severity,violation_rate
+CQ001,Completeness,patients,Id,0,Exclude,0.0
+CQ002,Completeness,patients,BIRTHDATE,1,Flag,0.05263157894736842
+VQ001,Validity,patients,GENDER,1,Flag,0.05263157894736842
+UQ001,Uniqueness,patients,Id,2,Exclude,0.10526315789473684
+RQ001,Referential Integrity,encounters,PATIENT,0,Exclude,0.0
+TQ001,Temporal,encounters,START/STOP,10,Exclude,0.009596928982725527

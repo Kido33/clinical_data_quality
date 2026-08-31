@@ -1,0 +1,3 @@
+table_name,before_rows,after_rows,excluded_rows,exclusion_rate
+patients,19,18,1,0.05263157894736842
+encounters,1042,1032,10,0.009596928982725527

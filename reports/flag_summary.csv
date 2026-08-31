@@ -1,0 +1,3 @@
+table_name,rule_id,flagged_rows
+patients,CQ002,1
+patients,VQ001,1
