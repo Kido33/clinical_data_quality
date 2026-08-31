@@ -1,20 +1,5 @@
 import subprocess
 import sys
-from pathlib import Path
-
-
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-SRC_DIR = PROJECT_ROOT / "src"
-
-
-STEPS = [
-    ("Validate environment", "check_env.py"),
-    ("Load Synthea data", "load_synthea.py"),
-    ("Inject test errors", "inject_errors.py"),
-    ("Validate data quality", "validate_quality.py"),
-    ("Build analysis dataset", "build_analysis_dataset.py"),
-    ("Generate quality report", "generate_quality_report.py"),
-]
 
 
 def run_step(name, script):
@@ -22,26 +7,82 @@ def run_step(name, script):
     print(name)
     print("=" * 60)
 
-    result = subprocess.run(
-        [sys.executable, str(SRC_DIR / script)],
-        cwd=PROJECT_ROOT
+    subprocess.run(
+        [sys.executable, script],
+        check=True
     )
-
-    if result.returncode != 0:
-        print(f"\n[FAILED] {name}")
-        print(f"Script: {script}")
-        sys.exit(result.returncode)
 
     print(f"\n[OK] {name}")
 
 
 def main():
-    print("=" * 60)
-    print("Clinical Data Quality Pipeline")
-    print("=" * 60)
 
-    for name, script in STEPS:
-        run_step(name, script)
+    # ========================================================
+    # 1. Validate environment
+    # ========================================================
+
+    run_step(
+        "Validate environment",
+        "src/check_env.py"
+    )
+
+    # ========================================================
+    # 2. Load Synthea data
+    # ========================================================
+
+    run_step(
+        "Load Synthea data",
+        "src/load_synthea.py"
+    )
+
+    # ========================================================
+    # 3. Inject test errors
+    # ========================================================
+
+    run_step(
+        "Inject test errors",
+        "src/inject_errors.py"
+    )
+
+    # ========================================================
+    # 4. Validate data quality
+    # ========================================================
+
+    run_step(
+        "Validate data quality",
+        "src/validate_quality.py"
+    )
+
+    # ========================================================
+    # 5. Build analysis dataset
+    # ========================================================
+
+    run_step(
+        "Build analysis dataset",
+        "src/build_analysis_dataset.py"
+    )
+
+    # ========================================================
+    # 6. Generate quality report
+    # ========================================================
+
+    run_step(
+        "Generate quality report",
+        "src/generate_quality_report.py"
+    )
+
+    # ========================================================
+    # 7. Generate quality metrics
+    # ========================================================
+
+    run_step(
+        "Generate quality metrics",
+        "src/generate_quality_metrics.py"
+    )
+
+    # ========================================================
+    # Pipeline completed
+    # ========================================================
 
     print("\n" + "=" * 60)
     print("Pipeline completed successfully")
