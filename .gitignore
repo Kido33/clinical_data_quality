@@ -8,3 +8,4 @@ data/corrupted/
 data/processed/
 
 tools/synthea/output/
+tools/synthea/*.jar
