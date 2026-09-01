@@ -94,6 +94,7 @@ jobs:
         run: |
           java -jar tools/synthea/synthea-with-dependencies.jar -h
 
+
       # ============================================================
       # 7. Generate Synthea synthetic data
       # ============================================================
@@ -106,8 +107,27 @@ jobs:
             --exporter.baseDirectory=tools/synthea/output/ \
             Massachusetts
 
+
       # ============================================================
-      # 8. Configure database environment
+      # 8. Verify generated Synthea data
+      # ============================================================
+
+      - name: Verify generated Synthea data
+        run: |
+          echo "Generated files:"
+          find tools/synthea/output -maxdepth 3 -type f | sort
+
+          echo ""
+          echo "Checking required CSV files..."
+
+          test -f tools/synthea/output/csv/patients.csv
+          test -f tools/synthea/output/csv/encounters.csv
+          test -f tools/synthea/output/csv/observations.csv
+
+          echo "Required Synthea CSV files exist."
+
+      # ============================================================
+      # 9. Configure database environment
       # ============================================================
 
       - name: Configure database environment
@@ -120,7 +140,7 @@ jobs:
 
 
       # ============================================================
-      # 9. Run pipeline
+      # 10. Run pipeline
       # ============================================================
 
       - name: Run quality pipeline
@@ -129,7 +149,7 @@ jobs:
 
 
       # ============================================================
-      # 10. Run automated tests
+      # 11. Run automated tests
       # ============================================================
 
       - name: Run pytest
