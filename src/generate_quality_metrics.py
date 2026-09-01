@@ -117,22 +117,11 @@ WITH metrics AS (
     -- ========================================================
     -- UQ001: Patient ID Uniqueness
     --
-    -- A uniqueness violation is counted only for the
-    -- excess duplicate rows beyond the first valid occurrence.
+    -- Uniqueness is measured as:
+    -- total rows - distinct patient IDs
     --
-    -- Example:
-    --   ID A
-    --   ID A
-    --
-    -- Total rows      = 2
-    -- Unique IDs      = 1
-    -- Duplicate rows  = 2 - 1 = 1
-    --
-    -- Therefore:
-    --   quality_rate = 100 * (1 - duplicate_rows / total_rows)
-    --                 = 50%
-    --
-    -- This matches the definition used by the automated tests.
+    -- This matches the validation/test definition.
+    -- Each excess duplicate row is counted as a violation.
     -- ========================================================
 
     SELECT
@@ -141,13 +130,14 @@ WITH metrics AS (
         'patients',
         'Id',
         'Patient ID Uniqueness',
-        COUNT(*) AS total_rows,
-        COUNT(DISTINCT "Id") AS valid_rows,
-        COUNT(*) - COUNT(DISTINCT "Id") AS invalid_rows,
+        COUNT(*),
+        COUNT(DISTINCT "Id"),
+        COUNT(*) - COUNT(DISTINCT "Id"),
         ROUND(
-            100.0 * COUNT(DISTINCT "Id") / NULLIF(COUNT(*), 0),
+            100.0 * COUNT(DISTINCT "Id")
+            / NULLIF(COUNT(*), 0),
             2
-        ) AS quality_rate
+        )
     FROM quality_test.patients
 
 

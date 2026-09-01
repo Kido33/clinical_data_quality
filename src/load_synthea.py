@@ -124,8 +124,7 @@ def main():
 
             result = connection.execute(
                 text(
-                    f"SELECT COUNT(*) "
-                    f"FROM raw.{table_name}"
+                    f'SELECT COUNT(*) FROM raw."{table_name}"'
                 )
             )
 
