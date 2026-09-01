@@ -92,7 +92,18 @@ def main():
         print(
             f"Inserted -> raw.{table_name}"
         )
+    # ============================================================
+    # Create raw schema
+    # ============================================================
 
+    with engine.begin() as connection:
+        connection.execute(
+            text(
+                "CREATE SCHEMA IF NOT EXISTS raw"
+            )
+        )
+
+    print("[OK] raw schema ready")
 
     # --------------------------------------------------
     # 5. Verify

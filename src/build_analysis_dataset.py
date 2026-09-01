@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 from dotenv import load_dotenv
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 
 
 # ============================================================
@@ -23,6 +23,20 @@ DATABASE_URL = (
 
 engine = create_engine(DATABASE_URL)
 
+# ============================================================
+# Create analysis schema
+# ============================================================
+
+from sqlalchemy import text
+
+with engine.begin() as connection:
+    connection.execute(
+        text(
+            "CREATE SCHEMA IF NOT EXISTS analysis"
+        )
+    )
+
+print("[OK] analysis schema ready")
 
 print("=" * 60)
 print("Building Analysis Dataset")
