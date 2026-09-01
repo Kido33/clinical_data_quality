@@ -1,4 +1,5 @@
 import os
+
 import pandas as pd
 from dotenv import load_dotenv
 from sqlalchemy import create_engine, text
@@ -116,8 +117,22 @@ WITH metrics AS (
     -- ========================================================
     -- UQ001: Patient ID Uniqueness
     --
-    -- A duplicated ID group means every row in that group
-    -- is considered a uniqueness violation.
+    -- A uniqueness violation is counted only for the
+    -- excess duplicate rows beyond the first valid occurrence.
+    --
+    -- Example:
+    --   ID A
+    --   ID A
+    --
+    -- Total rows      = 2
+    -- Unique IDs      = 1
+    -- Duplicate rows  = 2 - 1 = 1
+    --
+    -- Therefore:
+    --   quality_rate = 100 * (1 - duplicate_rows / total_rows)
+    --                 = 50%
+    --
+    -- This matches the definition used by the automated tests.
     -- ========================================================
 
     SELECT
@@ -126,34 +141,13 @@ WITH metrics AS (
         'patients',
         'Id',
         'Patient ID Uniqueness',
-        COUNT(*),
-        COUNT(*) FILTER (
-            WHERE "Id" IN (
-                SELECT "Id"
-                FROM quality_test.patients
-                GROUP BY "Id"
-                HAVING COUNT(*) = 1
-            )
-        ),
-        COUNT(*) FILTER (
-            WHERE "Id" IN (
-                SELECT "Id"
-                FROM quality_test.patients
-                GROUP BY "Id"
-                HAVING COUNT(*) > 1
-            )
-        ),
+        COUNT(*) AS total_rows,
+        COUNT(DISTINCT "Id") AS valid_rows,
+        COUNT(*) - COUNT(DISTINCT "Id") AS invalid_rows,
         ROUND(
-            100.0 * COUNT(*) FILTER (
-                WHERE "Id" IN (
-                    SELECT "Id"
-                    FROM quality_test.patients
-                    GROUP BY "Id"
-                    HAVING COUNT(*) = 1
-                )
-            ) / NULLIF(COUNT(*), 0),
+            100.0 * COUNT(DISTINCT "Id") / NULLIF(COUNT(*), 0),
             2
-        )
+        ) AS quality_rate
     FROM quality_test.patients
 
 
@@ -288,4 +282,3 @@ print("reports/quality_metrics.csv")
 print("\n" + "=" * 60)
 print("Quality metrics generation completed")
 print("=" * 60)
-
