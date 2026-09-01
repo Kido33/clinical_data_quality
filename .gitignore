@@ -9,3 +9,4 @@ data/processed/
 
 tools/synthea/output/
 tools/synthea/*.jar
+tools/synthea/synthea-with-dependencies.jar

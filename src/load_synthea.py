@@ -61,7 +61,7 @@ tables = {
 def main():
 
     print("=" * 60)
-    print("Synthea → PostgreSQL loading")
+    print("Synthea -> PostgreSQL loading")
     print("=" * 60)
 
     for table_name, filename in tables.items():
@@ -90,7 +90,7 @@ def main():
         )
 
         print(
-            f"Inserted → raw.{table_name}"
+            f"Inserted -> raw.{table_name}"
         )
 
 
