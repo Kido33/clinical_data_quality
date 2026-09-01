@@ -102,8 +102,14 @@ jobs:
 
       - name: Generate Synthea data
         run: |
-          java -jar tools/synthea/synthea-with-dependencies.jar -s 1788156358927 -p 18 -r 20260831 -e 20260831 --exporter.baseDirectory=tools/synthea/output/ --exporter.csv.export=true Massachusetts
-
+          java -jar tools/synthea/synthea-with-dependencies.jar \
+            -s 1788156358927 \
+            -p 18 \
+            -r 20260831 \
+            -e 20260831 \
+            --exporter.baseDirectory=tools/synthea/output/ \
+            --exporter.csv.export=true \
+            Massachusetts
 
 
       # ============================================================

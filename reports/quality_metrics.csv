@@ -3,5 +3,5 @@ CQ001,Completeness,patients,Id,Patient ID Completeness,19,19,0,100.0
 CQ002,Completeness,patients,BIRTHDATE,Birthdate Completeness,19,18,1,94.74
 RQ001,Referential Integrity,encounters,PATIENT,Encounter Patient Referential Integrity,1042,1042,0,100.0
 TQ001,Temporal,encounters,START/STOP,Encounter Temporal Consistency,1042,1032,10,99.04
-UQ001,Uniqueness,patients,Id,Patient ID Uniqueness,19,17,2,89.47
+UQ001,Uniqueness,patients,Id,Patient ID Uniqueness,19,18,1,94.74
 VQ001,Validity,patients,GENDER,Gender Validity,19,18,1,94.74

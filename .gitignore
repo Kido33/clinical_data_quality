@@ -8,5 +8,6 @@ data/corrupted/
 data/processed/
 
 tools/synthea/output/
+tools/synthea/ci_test/
 tools/synthea/*.jar
 tools/synthea/synthea-with-dependencies.jar
