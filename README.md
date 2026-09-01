@@ -1,4 +1,5 @@
 # Clinical Data Quality Pipeline
+[![Clinical Data Quality CI](https://github.com/Kido33/clinical_data_quality/actions/workflows/quality_test.yml/badge.svg)](https://github.com/Kido33/clinical_data_quality/actions/workflows/quality_test.yml)
 
 Synthetic Clinical Data를 대상으로 **임상 데이터 품질 규칙을 정의하고, 의도적으로 오류를 주입한 뒤 SQL 기반 검증을 수행하여 분석 가능한 데이터셋과 품질 지표를 생성하는 데이터 품질 관리 파이프라인**입니다.
 
