@@ -94,9 +94,20 @@ jobs:
         run: |
           java -jar tools/synthea/synthea-with-dependencies.jar -h
 
+      # ============================================================
+      # 7. Generate Synthea synthetic data
+      # ============================================================
+
+      - name: Generate Synthea data
+        run: |
+          java -jar tools/synthea/synthea-with-dependencies.jar \
+            -s 1788156358927 \
+            -p 18 \
+            --exporter.baseDirectory=tools/synthea/output/ \
+            Massachusetts
 
       # ============================================================
-      # 7. Configure database environment
+      # 8. Configure database environment
       # ============================================================
 
       - name: Configure database environment
@@ -109,7 +120,7 @@ jobs:
 
 
       # ============================================================
-      # 8. Run pipeline
+      # 9. Run pipeline
       # ============================================================
 
       - name: Run quality pipeline
@@ -118,7 +129,7 @@ jobs:
 
 
       # ============================================================
-      # 9. Run automated tests
+      # 10. Run automated tests
       # ============================================================
 
       - name: Run pytest
