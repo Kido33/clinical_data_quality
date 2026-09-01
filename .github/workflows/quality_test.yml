@@ -107,6 +107,8 @@ jobs:
             --exporter.baseDirectory=tools/synthea/output/ \
             --exporter.csv.export=true \
             Massachusetts
+            -r 20260831
+            -e 20260831
 
 
       # ============================================================
