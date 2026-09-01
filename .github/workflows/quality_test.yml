@@ -95,20 +95,15 @@ jobs:
           java -jar tools/synthea/synthea-with-dependencies.jar -h
 
 
+
       # ============================================================
       # 7. Generate Synthea synthetic data
       # ============================================================
 
       - name: Generate Synthea data
         run: |
-          java -jar tools/synthea/synthea-with-dependencies.jar \
-            -s 1788156358927 \
-            -p 18 \
-            --exporter.baseDirectory=tools/synthea/output/ \
-            --exporter.csv.export=true \
-            Massachusetts
-            -r 20260831
-            -e 20260831
+          java -jar tools/synthea/synthea-with-dependencies.jar -s 1788156358927 -p 18 -r 20260831 -e 20260831 --exporter.baseDirectory=tools/synthea/output/ --exporter.csv.export=true Massachusetts
+
 
 
       # ============================================================
